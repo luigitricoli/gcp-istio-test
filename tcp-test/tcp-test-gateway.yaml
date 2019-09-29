@@ -1,0 +1,30 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: tcp-test-gateway
+spec:
+  selector:
+    istio: ingressgateway # use istio default controller
+  servers:
+  - port:
+      number: 9789
+      name: tcp
+      protocol: TCP
+    hosts:
+    - "*"
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: tcp-test-vs
+spec:
+  hosts:
+  - "*"
+  tcp:
+  - match:
+    - port: 9789
+    route:
+    - destination:
+        host: tcp-test
+        port:
+          number: 9789

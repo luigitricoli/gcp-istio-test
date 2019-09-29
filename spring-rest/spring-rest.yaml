@@ -1,0 +1,23 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    run: spring-rest
+    version: v1
+  name: spring-rest-v4
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: spring-rest
+        version: v1
+    spec:
+      containers:
+      - image: gcr.io/istio-test-254313/spring-rest:v4
+        imagePullPolicy: IfNotPresent
+        name: spring-rest
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        resources: {}

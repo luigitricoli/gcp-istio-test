@@ -1,0 +1,23 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    run: tcp-test
+    version: v1
+  name: tcp-test-v4
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: tcp-test
+        version: v1
+    spec:
+      containers:
+      - image: gcr.io/istio-test-254313/tcp-test:v3
+        imagePullPolicy: IfNotPresent
+        name: tcp-test
+        ports:
+        - containerPort: 9789
+          protocol: TCP
+        resources: {}
